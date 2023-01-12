@@ -1,0 +1,21 @@
+{
+    "name": "phpdie/amazon-sp-api",
+    "description": "amazon-sp-api",
+    "type": "composer-plugin",
+    "require": {
+        "aws/aws-sdk-php": "^3.256",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "phpdie",
+            "email": "admin@phpdie.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Phpdie\\AmazonSpApi\\": "src/"
+        }
+    }
+}
