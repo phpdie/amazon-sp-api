@@ -80,9 +80,14 @@ class AmaRequest
         $this->setCredentials($credentials);
     }
 
+    private function __clone()
+    {
+
+    }
+
     public static function getInstance(string $access_token, Credentials $credentials): AmaRequest
     {
-        if (self::$instance && self::$instance instanceof self) {
+        if (!empty(self::$instance) && self::$instance instanceof self) {
             return self::$instance;
         }
         return new self($access_token, $credentials);

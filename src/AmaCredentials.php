@@ -4,11 +4,11 @@
 namespace Phpdie\AmazonSpApi;
 
 use \Aws\Sts\StsClient;
-use \Aws\Credentials;
+use \Aws\Credentials\Credentials;
 
 class AmaCredentials
 {
-    public static function createCredentials($key,$secret,$region,$roleToAssumeArn):Credentials
+    public static function createCredentials($key, $secret, $region, $roleToAssumeArn): Credentials
     {
         $client = new StsClient([
             'region' => $region,
@@ -22,11 +22,11 @@ class AmaCredentials
             'RoleArn' => $roleToAssumeArn,
             'RoleSessionName' => 'amazon-sp-api-php'
         ]);
-       return $client->createCredentials($result);
+        return $client->createCredentials($result);
     }
 
-    public static function makeCredentials($AccessKeyId,$SecretAccessKey,$SecurityToken,$Expiration):Credentials
+    public static function makeCredentials($AccessKeyId, $SecretAccessKey, $SecurityToken, $Expiration): Credentials
     {
-        return new Credentials($AccessKeyId,$SecretAccessKey,$SecurityToken,$Expiration);
+        return new Credentials($AccessKeyId, $SecretAccessKey, $SecurityToken, $Expiration);
     }
 }
