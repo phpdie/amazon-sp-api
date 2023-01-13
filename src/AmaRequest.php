@@ -93,20 +93,13 @@ class AmaRequest
         return new self($access_token, $credentials);
     }
 
-    public static function getAccessTokenByRefreshToken(
-        string $client_id,
-        string $client_secret,
-        string $refresh_token
-    )
+    public static function getAccessTokenByRefreshToken(string $client_id, string $client_secret, string $refresh_token)
     {
         $data['grant_type'] = 'refresh_token';
         $data['client_id'] = $client_id;
         $data['client_secret'] = $client_secret;
         $data['refresh_token'] = $refresh_token;
-        $refreshInfo = (new \GuzzleHttp\Client())->request(
-            'POST',
-            sprintf("https://api.amazon.com/auth/o2/token?%s", http_build_query($data))
-        );
+        $refreshInfo = (new \GuzzleHttp\Client())->request('POST', 'https://api.amazon.com/auth/o2/token?' . http_build_query($data));
         return json_decode($refreshInfo->getBody()->getContents(), true);
     }
 
