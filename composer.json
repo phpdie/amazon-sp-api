@@ -1,8 +1,9 @@
 {
     "name": "phpdie/amazon-sp-api",
     "description": "amazon-sp-api",
-    "type": "composer-plugin",
+    "type": "library",
     "require": {
+        "php": ">=7.4",
         "aws/aws-sdk-php": "^3.256",
         "guzzlehttp/guzzle": "~6.0"
     },
