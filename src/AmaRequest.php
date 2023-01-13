@@ -100,7 +100,7 @@ class AmaRequest
         $data['client_secret'] = $client_secret;
         $data['refresh_token'] = $refresh_token;
         $refreshInfo = (new \GuzzleHttp\Client())->request('POST', 'https://api.amazon.com/auth/o2/token?' . http_build_query($data));
-        return json_decode($refreshInfo->getBody()->getContents(), true);
+        return $refreshInfo->getBody()->getContents();
     }
 
     public function sendRequest(string $path, ?array $param, ?array $body, string $method = 'GET', $service = 'execute-api')
