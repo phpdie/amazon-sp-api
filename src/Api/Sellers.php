@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Phpdie\AmazonSpApi\Api;
-
 
 use Phpdie\AmazonSpApi\AmaRequest;
 
