@@ -4,6 +4,9 @@
 namespace Phpdie\AmazonSpApi;
 
 use \Aws\Credentials\Credentials;
+use \Aws\Signature\SignatureV4;
+use \GuzzleHttp\Psr7\Request;
+use \GuzzleHttp\Client;
 
 class AmaRequest
 {
@@ -54,12 +57,12 @@ class AmaRequest
         $this->access_token = $access_token;
     }
 
-    public function getRegion(): string
+    private function getRegion(): string
     {
         return $this->region;
     }
 
-    public function setRegion(string $region): void
+    private function setRegion(string $region): void
     {
         $this->region = $region;
     }
@@ -95,24 +98,26 @@ class AmaRequest
 
     public static function getAccessTokenByRefreshToken(string $client_id, string $client_secret, string $refresh_token)
     {
-        $data['grant_type'] = 'refresh_token';
-        $data['client_id'] = $client_id;
-        $data['client_secret'] = $client_secret;
-        $data['refresh_token'] = $refresh_token;
-        $refreshInfo = (new \GuzzleHttp\Client())->request('POST', 'https://api.amazon.com/auth/o2/token?' . http_build_query($data));
-        return $refreshInfo->getBody()->getContents();
+        $data = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $client_id,
+            'client_secret' => $client_secret,
+            'refresh_token' => $refresh_token
+        ];
+        return (new Client())->request('POST',
+            'https://api.amazon.com/auth/o2/token?' . http_build_query($data)
+        )->getBody()->getContents();
     }
 
-    public function sendRequest(string $path, ?array $param, ?array $body, string $method = 'GET', $service = 'execute-api')
+    public function sendRequest(string $path, array $param, array $body, string $method = 'GET', $service = 'execute-api')
     {
         $method = strtoupper(trim($method));
         $uri = 'https://' . $this->getHost() . trim($path);
-        $body = $body ? json_encode($body) : null;
         $uri .= $param ? '?' . http_build_query($param) : '';
-        $request = new \GuzzleHttp\Psr7\Request($method, $uri, ['x-amz-access-token' => $this->getAccessToken()], $body);
-        $signatureV4 = new \Aws\Signature\SignatureV4($service, $this->getRegion());
+        $body = $body ? json_encode($body) : null;
+        $request = new Request($method, $uri, ['x-amz-access-token' => $this->getAccessToken()], $body);
+        $signatureV4 = new SignatureV4($service, $this->getRegion());
         $sendRequest = $signatureV4->signRequest($request, $this->getCredentials(), $service);
-        $client = new \GuzzleHttp\Client();
-        return $client->send($sendRequest)->getBody()->getContents();
+        return (new Client())->send($sendRequest)->getBody()->getContents();
     }
 }
