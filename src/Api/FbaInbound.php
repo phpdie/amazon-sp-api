@@ -1,8 +1,8 @@
 <?php
 
-namespace Phpdie\AmazonSpApi\Api;
+namespace AmazonSpApi\Api;
 
-use Phpdie\AmazonSpApi\AmaRequest;
+use AmazonSpApi\AmaRequest;
 
 class FbaInbound
 {

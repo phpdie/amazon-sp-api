@@ -16,7 +16,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Phpdie\\AmazonSpApi\\": "src/"
+            "AmazonSpApi\\": "src/"
         }
     }
 }

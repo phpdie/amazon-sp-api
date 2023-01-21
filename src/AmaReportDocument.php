@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Phpdie\AmazonSpApi;
+namespace AmazonSpApi;
 
 
 class AmaReportDocument

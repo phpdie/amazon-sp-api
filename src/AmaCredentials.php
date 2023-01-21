@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Phpdie\AmazonSpApi;
+namespace AmazonSpApi;
 
 use \Aws\Sts\StsClient;
 use \Aws\Credentials\Credentials;

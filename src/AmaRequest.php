@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Phpdie\AmazonSpApi;
+namespace AmazonSpApi;
 
 use \Aws\Credentials\Credentials;
 use \Aws\Signature\SignatureV4;
@@ -109,8 +109,9 @@ class AmaRequest
         )->getBody()->getContents();
     }
 
-    public function sendRequest(string $path, array $param, array $body, string $method = 'GET', $service = 'execute-api')
+    public function sendRequest(string $path, array $param, array $body, string $method = 'GET')
     {
+        $service = 'execute-api';
         $method = strtoupper(trim($method));
         $uri = 'https://' . $this->getHost() . trim($path);
         $uri .= $param ? '?' . http_build_query($param) : '';
