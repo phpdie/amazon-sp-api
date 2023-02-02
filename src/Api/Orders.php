@@ -2,17 +2,10 @@
 
 namespace AmazonSpApi\Api;
 
-use AmazonSpApi\AmaRequest;
+use AmazonSpApi\BaseModel;
 
-class Orders
+class Orders extends BaseModel
 {
-    private AmaRequest $instance;
-
-    public function __construct(AmaRequest $instance)
-    {
-        $this->instance = $instance;
-    }
-
     public function getOrders(array $param)
     {
         $path = '/orders/v0/orders';

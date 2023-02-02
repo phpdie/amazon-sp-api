@@ -2,17 +2,10 @@
 
 namespace AmazonSpApi\Api;
 
-use AmazonSpApi\AmaRequest;
+use AmazonSpApi\BaseModel;
 
-class Reports
+class Reports extends BaseModel
 {
-    private AmaRequest $instance;
-
-    public function __construct(AmaRequest $instance)
-    {
-        $this->instance = $instance;
-    }
-
     public function getReports(array $param)
     {
         $path = '/reports/2021-06-30/reports';

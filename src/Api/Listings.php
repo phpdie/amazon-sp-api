@@ -2,17 +2,10 @@
 
 namespace AmazonSpApi\Api;
 
-use AmazonSpApi\AmaRequest;
+use AmazonSpApi\BaseModel;
 
-class Listings
+class Listings extends BaseModel
 {
-    private AmaRequest $instance;
-
-    public function __construct(AmaRequest $instance)
-    {
-        $this->instance = $instance;
-    }
-
     public function getListingsItem(array $param)
     {
         $sellerId = $param['sellerId'];

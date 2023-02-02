@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AmazonSpApi;
 
 use \Aws\Sts\StsClient;

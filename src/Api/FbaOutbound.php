@@ -2,17 +2,10 @@
 
 namespace AmazonSpApi\Api;
 
-use AmazonSpApi\AmaRequest;
+use AmazonSpApi\BaseModel;
 
-class FbaOutbound
+class FbaOutbound extends BaseModel
 {
-    private AmaRequest $instance;
-
-    public function __construct(AmaRequest $instance)
-    {
-        $this->instance = $instance;
-    }
-
     public function getFulfillmentPreview(array $body)
     {
         $path = '/fba/outbound/2020-07-01/fulfillmentOrders/preview';

@@ -2,17 +2,10 @@
 
 namespace AmazonSpApi\Api;
 
-use AmazonSpApi\AmaRequest;
+use AmazonSpApi\BaseModel;
 
-class Shipping
+class Shipping extends BaseModel
 {
-    private AmaRequest $instance;
-
-    public function __construct(AmaRequest $instance)
-    {
-        $this->instance = $instance;
-    }
-
     public function createShipment(array $body)
     {
         $path = '/shipping/v1/shipments';

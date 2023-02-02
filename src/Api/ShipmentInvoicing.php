@@ -2,17 +2,10 @@
 
 namespace AmazonSpApi\Api;
 
-use AmazonSpApi\AmaRequest;
+use AmazonSpApi\BaseModel;
 
-class ShipmentInvoicing
+class ShipmentInvoicing extends BaseModel
 {
-    private AmaRequest $instance;
-
-    public function __construct(AmaRequest $instance)
-    {
-        $this->instance = $instance;
-    }
-
     public function getShipmentDetails(array $param)
     {
         $path = '/fba/outbound/brazil/v0/shipments/{shipmentId}';
