@@ -75,4 +75,21 @@ class Orders extends BaseModel
         $path = str_replace('{orderId}', $orderId, $path);
         return $this->instance->sendRequest($path, [], $body, 'PATCH');
     }
+
+    public function getOrderItemsApprovals(array $param)
+    {
+        $orderId = $param['orderId'];
+        $path = '/orders/v0/orders/{orderId}/approvals';
+        $path = str_replace('{orderId}', $orderId, $path);
+        unset($param['orderId']);
+        return $this->instance->sendRequest($path, $param, [], 'GET');
+    }
+
+    public function updateOrderItemsApprovals(array $param, array $body)
+    {
+        $orderId = $param['orderId'];
+        $path = '/orders/v0/orders/{orderId}/approvals';
+        $path = str_replace('{orderId}', $orderId, $path);
+        return $this->instance->sendRequest($path, [], $body, 'POST');
+    }
 }
