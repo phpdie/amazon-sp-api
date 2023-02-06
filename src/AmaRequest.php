@@ -46,8 +46,10 @@ class AmaRequest
         if (strpos($host, 'https://') === false) {
             $host = 'https://' . $host;
         }
-        $this->host = $host;
-        $this->setRegion(self::$endpoints[$host]['region'] ?? null);
+        if (isset(self::$endpoints[$host])) {
+            $this->host = $host;
+            $this->setRegion(self::$endpoints[$host]['region']);
+        }
     }
 
     private function getAccessToken(): string
