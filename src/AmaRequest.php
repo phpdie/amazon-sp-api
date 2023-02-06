@@ -121,7 +121,7 @@ class AmaRequest
         $uri = $this->getHost() . trim($path);
         $uri .= $param ? '?' . http_build_query($param) : '';
         if ($body) {
-            $body = isset($body['body']) ? json_encode($body) : json_encode(['body' => $body]);
+            $body = isset($body['body']) ? json_encode($body['body']) : json_encode($body);
         } else {
             $body = null;
         }
