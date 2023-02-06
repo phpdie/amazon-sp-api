@@ -10,11 +10,11 @@ use \GuzzleHttp\Client;
 
 class AmaRequest
 {
-    private string $host;
+    private string $host = '';
 
-    private string $access_token;
+    private string $access_token = '';
 
-    private string $region;
+    private string $region = '';
 
     private static AmaRequest $instance;
 
