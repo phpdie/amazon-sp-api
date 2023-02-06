@@ -21,16 +21,16 @@ class AmaRequest
     private Credentials $credentials;
 
     private static array $endpoints = [
-        'sellingpartnerapi-na.amazon.com' => [
+        'https://sellingpartnerapi-na.amazon.com' => [
             //North America (Canada, US, Mexico, and Brazil marketplaces)
             'region' => 'us-east-1',
         ],
-        'sellingpartnerapi-eu.amazon.com' => [
+        'https://sellingpartnerapi-eu.amazon.com' => [
             //Europe (Spain, UK, France, Belgium, Netherlands, Germany, Italy, Sweden, Poland, Saudi Arabia,
             //Egypt, Turkey, United Arab Emirates, and India marketplaces)
             'region' => 'eu-west-1',
         ],
-        'sellingpartnerapi-fe.amazon.com' => [
+        'https://sellingpartnerapi-fe.amazon.com' => [
             //Far East (Singapore, Australia, and Japan marketplaces)
             'region' => 'us-west-2',
         ]
@@ -43,8 +43,11 @@ class AmaRequest
 
     public function setHost(string $host): void
     {
+        if (strpos($host, 'https://') === false) {
+            $host = 'https://' . $host;
+        }
         $this->host = $host;
-        $this->setRegion(self::$endpoints[$host]['region']);
+        $this->setRegion(self::$endpoints[$host]['region'] ?? null);
     }
 
     private function getAccessToken(): string
@@ -67,12 +70,12 @@ class AmaRequest
         $this->region = $region;
     }
 
-    public function getCredentials(): Credentials
+    private function getCredentials(): Credentials
     {
         return $this->credentials;
     }
 
-    public function setCredentials(Credentials $credentials): void
+    private function setCredentials(Credentials $credentials): void
     {
         $this->credentials = $credentials;
     }
@@ -113,9 +116,13 @@ class AmaRequest
     {
         $service = 'execute-api';
         $method = strtoupper(trim($method));
-        $uri = 'https://' . $this->getHost() . trim($path);
+        $uri = $this->getHost() . trim($path);
         $uri .= $param ? '?' . http_build_query($param) : '';
-        $body = $body ? json_encode($body) : null;
+        if ($body) {
+            $body = isset($body['body']) ? json_encode($body) : json_encode(['body' => $body]);
+        } else {
+            $body = null;
+        }
         $request = new Request($method, $uri, ['x-amz-access-token' => $this->getAccessToken()], $body);
         $signatureV4 = new SignatureV4($service, $this->getRegion());
         $sendRequest = $signatureV4->signRequest($request, $this->getCredentials(), $service);
