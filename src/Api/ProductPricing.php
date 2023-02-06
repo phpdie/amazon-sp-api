@@ -23,6 +23,7 @@ class ProductPricing extends BaseModel
         $SellerSKU = $param['SellerSKU'];
         $path = '/products/pricing/v0/listings/{SellerSKU}/offers';
         $path = str_replace('{SellerSKU}', $SellerSKU, $path);
+        unset($param['SellerSKU']);
         return $this->instance->sendRequest($path, $param, [], 'GET');
     }
 
@@ -31,6 +32,7 @@ class ProductPricing extends BaseModel
         $Asin = $param['Asin'];
         $path = '/products/pricing/v0/items/{Asin}/offers';
         $path = str_replace('{Asin}', $Asin, $path);
+        unset($param['Asin']);
         return $this->instance->sendRequest($path, $param, [], 'GET');
     }
 
