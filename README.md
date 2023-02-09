@@ -17,7 +17,7 @@ use AmazonSpApi\Api\Reports;
 
 class Test{
     public function index(){
-        $refresh_token = '用你的吧';//类似于Atzr|
+        $refresh_token = '用你的吧';//类似于Atzr|开头的
         $key = '用你的吧';
         $secret = '用你的吧';
         $client_id = '用你的吧'; //类似于amzn1.application-开头的
