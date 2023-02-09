@@ -20,11 +20,11 @@ class AmaReportDocument
         return $gzip ? gzdecode($content) : $content;
     }
 
-    public static function download(string $url, string $key = '', string $iv = '', bool $gzip = false)
+    public static function download(string $url, $filename = 'document.xls', string $key = '', string $iv = '', bool $gzip = false)
     {
         $data = self::parse($url, $key, $iv, $gzip);
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
-        header("Content-Disposition: attachment; filename=document.xls");
+        header("Content-Disposition: attachment; filename=$filename");
         header("Pragma: no-cache");
         header("Expires: 0");
         echo $data;
