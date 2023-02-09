@@ -120,11 +120,7 @@ class AmaRequest
         $method = strtoupper(trim($method));
         $uri = $this->getHost() . trim($path);
         $uri .= $param ? '?' . http_build_query($param) : '';
-        if ($body) {
-            $body = isset($body['body']) ? json_encode($body['body']) : json_encode($body);
-        } else {
-            $body = null;
-        }
+        $body = $body ? json_encode($body) : null;
         $request = new Request($method, $uri, ['x-amz-access-token' => $this->getAccessToken()], $body);
         $signatureV4 = new SignatureV4($service, $this->getRegion());
         $sendRequest = $signatureV4->signRequest($request, $this->getCredentials(), $service);
