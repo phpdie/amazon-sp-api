@@ -4,7 +4,7 @@ namespace AmazonSpApi;
 
 class AmaReportDocument
 {
-    public static function parse(string $url, string $key = '', string $iv = '', bool $gzip = false)
+    public static function parse(string $url, bool $gzip = false, string $key = '', string $iv = '')
     {
         if (empty($key) && empty($iv)) {
             $content = file_get_contents($url);
@@ -20,13 +20,16 @@ class AmaReportDocument
         return $gzip ? gzdecode($content) : $content;
     }
 
-    public static function download(string $url, $filename = 'document.xls', string $key = '', string $iv = '', bool $gzip = false)
+    public static function download(string $url, $filename = 'document.xls', callable $func = null)
     {
-        $data = self::parse($url, $key, $iv, $gzip);
+        $data = file_get_contents($url);
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
         header("Content-Disposition: attachment; filename=$filename");
         header("Pragma: no-cache");
         header("Expires: 0");
+        if ($func) {
+            $data = $func($data);
+        }
         echo $data;
     }
 }
