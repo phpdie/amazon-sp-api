@@ -20,9 +20,8 @@ class AmaReportDocument
         return $gzip ? gzdecode($content) : $content;
     }
 
-    public static function download(string $url, $filename = 'document.xls', callable $func = null)
+    public static function download(string $data, $filename = 'document.xls', callable $func = null)
     {
-        $data = file_get_contents($url);
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
         header("Content-Disposition: attachment; filename=$filename");
         header("Pragma: no-cache");
