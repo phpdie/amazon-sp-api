@@ -4,13 +4,13 @@ namespace AmazonSpApi;
 
 class AmaReportDocument
 {
-    public static function parse(string $url, bool $gzip = false)
+    public static function parse(string $url, bool $gzip = false): string
     {
         $report_content = file_get_contents($url);
         return $gzip ? gzdecode($report_content) : $report_content;
     }
 
-    public static function download(string $report_content, $filename = 'document.xls', callable $func = null)
+    public static function download(string $report_content, $filename = 'document.xls', callable $func = null): void
     {
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
         header("Content-Disposition: attachment; filename=$filename");
