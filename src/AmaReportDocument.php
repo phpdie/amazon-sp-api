@@ -22,7 +22,7 @@ class AmaReportDocument
         echo $reportContent;
     }
 
-    public function toArray($result, $clearNullLine = false, $nl = '换行符', $tab = '制表符')
+    public function toArray($result, $clearNullLine = true, $nl = '换行符', $tab = '制表符')
     {
         $temp = str_replace(array("\r", "\n"), $nl, $result);
         $temp = rtrim($temp, $nl);
